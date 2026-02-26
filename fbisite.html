@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background: black;
+}
+
+.book {
+    width: 100vw;
+    height: 100vh;
+    background-position: center center;
+    background-size: cover;   /* ВСЕГДА заполняет экран */
+    background-repeat: no-repeat;
+}
+</style>
+</head>
+
+<body>
+
+<div class="book" id="book"></div>
+
+<script>
+const isMobile = window.innerWidth <= 768;
+
+const desktopImages = [
+    "img/note 1.png",
+    "img/note 2.png",
+    "img/note 3.png",
+    "img/note 4.png"
+];
+
+const mobileImages = [
+    "img/phone 1.png",
+    "img/phone 2.png",
+    "img/phone 3.png",
+    "img/phone 4.png",
+    "img/phone 5.png",
+    "img/phone 6.png",
+    "img/phone 7.png"
+];
+
+const images = isMobile ? mobileImages : desktopImages;
+
+let currentPage = 0;
+const book = document.getElementById("book");
+
+function updatePage() {
+    book.style.backgroundImage = `url('${images[currentPage]}')`;
+}
+
+updatePage();
+
+document.addEventListener("click", function(e) {
+    const clickX = e.clientX;
+    const screenWidth = window.innerWidth;
+
+    if (clickX < screenWidth / 2) {
+        if (currentPage > 0) currentPage--;
+    } else {
+        if (currentPage < images.length - 1) currentPage++;
+    }
+
+    updatePage();
+});
+</script>
+
+</body>
+</html>
